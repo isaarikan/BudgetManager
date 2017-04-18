@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1053097212840",
+    "firebase_url": "https://budgetmanager-cdf05.firebaseio.com",
+    "project_id": "budgetmanager-cdf05",
+    "storage_bucket": "budgetmanager-cdf05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053097212840:android:d669ade87be1c3fc",
+        "android_client_info": {
+          "package_name": "arksoft.com.budgetmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053097212840-albmc00p2jrtnrf1gu6jqi59vqg1j0l2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "arksoft.com.budgetmanager",
+            "certificate_hash": "d8e8d2d199a125b0afed636b0e89f650e0e77c2e"
+          }
+        },
+        {
+          "client_id": "1053097212840-huec7fu03vgcehjmsnv9grh762ktjbhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBujCAIgzrxA7vM82F097LT76GP_B-buaA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053097212840-huec7fu03vgcehjmsnv9grh762ktjbhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
