@@ -1,9 +1,9 @@
 package arksoft.com.budgetmanager;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,33 +19,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapter.CustomAdapter;
+import Adapter.ExpenseAdapter;
 import FireBase.FireBaseHelper;
-import Model.Income;
+import Model.Expense;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by isaarikan on 19.04.2017.
+ */
+
+public class ExpenseActivity extends Activity{
+
     DatabaseReference db;
     FireBaseHelper helper;
     FloatingActionButton fab;
-    CustomAdapter adapter;
+    ExpenseAdapter adapter;
     ListView lv;
     EditText nameEditTxt, propTxt, descTxt;
-    List<Income> incomelist = new ArrayList<>();
+    List<Expense> expenselist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_content);
+        setContentView(R.layout.expense_content);
 
         //Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        // setSupportActionBar(toolbar);
         lv=(ListView)findViewById(R.id.lv);
 
         db= FirebaseDatabase.getInstance().getReference();
         //isa
         helper=new FireBaseHelper(db);
-        adapter = new CustomAdapter(MainActivity.this, helper.getIncomes());
+        adapter=new ExpenseAdapter(this,helper.getExpenses());
         lv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
         fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Income doc =dataSnapshot.getValue(Income.class);
-                incomelist.add(doc);
+                Expense doc =dataSnapshot.getValue(Expense.class);
+                expenselist.add(doc);
                 adapter.notifyDataSetChanged();
 
 
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayInput() {
         final Dialog d=new Dialog(this);
 
-        d.setTitle("Gelir Girin");
+        d.setTitle("Gider Girin");
 
         d.setContentView(R.layout.inputlayout);
 
@@ -104,30 +110,32 @@ public class MainActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String name = nameEditTxt.getText().toString();
                 String type = propTxt.getText().toString();
                 String  amount= String.valueOf(descTxt.getText().toString());
 
-                Income income=new Income(name,type,amount);
+                Expense expense=new Expense(name,type,amount);
 
 
 
 
                 if (name != null && name.length() > 0) {
                     //THEN SAVE
-                    if (helper.save(income)) {
-
-                        adapter.notifyDataSetChanged();
+                    if (helper.saveExpense(expense)) {
                         //IF SAVED CLEAR EDITXT
-                        d.cancel();
-                        nameEditTxt.setText("");
-                       propTxt.setText("");
-                        descTxt.setText("");
 
+                        nameEditTxt.setText("");
+                        propTxt.setText("");
+                        descTxt.setText("");
+                        adapter = new ExpenseAdapter(ExpenseActivity.this, helper.getExpenses());
+                        lv.setAdapter(adapter);
+                        d.cancel();
 
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Name Must Not Be Empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ExpenseActivity.this, "Name Must Not Be Empty", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -7,8 +7,10 @@ package Model;
 
 
 public class Income {
+   private String name,type;
+  private  String miktar;
     public Income(){ }
-    public Income(String name, String type, int miktar) {
+    public Income(String name, String type, String miktar) {
         this.name = name;
         this.type = type;
         this.miktar = miktar;
@@ -30,15 +32,14 @@ public class Income {
         this.type = type;
     }
 
-    public int getMiktar() {
+    public String getMiktar() {
         return miktar;
     }
 
-    public void setMiktar(int miktar) {
+    public void setMiktar(String miktar) {
         this.miktar = miktar;
     }
 
-    String name,type;
-    int miktar;
+
 
 }

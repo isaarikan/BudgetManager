@@ -9,39 +9,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Model.Income;
+import Model.Expense;
 import arksoft.com.budgetmanager.R;
 
-
-
-
 /**
- * Created by isaarikan on 18.04.2017.
+ * Created by isaarikan on 19.04.2017.
  */
 
-public class CustomAdapter extends BaseAdapter{
+public class ExpenseAdapter extends BaseAdapter{
     Context c;
-    ArrayList<Income> incomes;
-
-
-
-    public CustomAdapter(){}
-
-    public CustomAdapter(Context c,ArrayList<Income> incomes){
-        this.incomes=incomes;
+    ArrayList<Expense> expenses;
+    public ExpenseAdapter(Context c,ArrayList<Expense> expenses){
         this.c=c;
-
+        this.expenses=expenses;
 
     }
 
     @Override
     public int getCount() {
-        return incomes.size();
+        return expenses.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return incomes.get(position);
+        return expenses.get(position);
     }
 
     @Override
@@ -53,7 +44,7 @@ public class CustomAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
-            convertView= LayoutInflater.from(c).inflate(R.layout.model,parent,false);
+            convertView= LayoutInflater.from(c).inflate(R.layout.expense_model,parent,false);
         }
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
@@ -62,7 +53,7 @@ public class CustomAdapter extends BaseAdapter{
 
 
 
-        final Income s= (Income) this.getItem(position);
+        final Expense s= (Expense) this.getItem(position);
         nameTxt.setText(s.getName());
         propTxt.setText(s.getType());
         descTxt.setText((String.valueOf(s.getMiktar())));
