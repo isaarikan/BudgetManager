@@ -62,7 +62,7 @@ public class CustomAdapter extends BaseAdapter{
 
 
 
-        final Income s= (Income) this.getItem(position);
+         Income s= (Income) this.getItem(position);
         nameTxt.setText(s.getName());
         propTxt.setText(s.getType());
         descTxt.setText((String.valueOf(s.getMiktar())));

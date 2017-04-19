@@ -17,11 +17,18 @@ import arksoft.com.budgetmanager.R;
  */
 
 public class ExpenseAdapter extends BaseAdapter{
+
     Context c;
     ArrayList<Expense> expenses;
+
+
+
+    public ExpenseAdapter(){}
+
     public ExpenseAdapter(Context c,ArrayList<Expense> expenses){
-        this.c=c;
         this.expenses=expenses;
+        this.c=c;
+
 
     }
 
@@ -44,7 +51,7 @@ public class ExpenseAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
-            convertView= LayoutInflater.from(c).inflate(R.layout.expense_model,parent,false);
+            convertView= LayoutInflater.from(c).inflate(R.layout.model,parent,false);
         }
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
@@ -53,10 +60,10 @@ public class ExpenseAdapter extends BaseAdapter{
 
 
 
-        final Expense s= (Expense) this.getItem(position);
-        nameTxt.setText(s.getName());
-        propTxt.setText(s.getType());
-        descTxt.setText((String.valueOf(s.getMiktar())));
+        Expense s= (Expense)getItem(position);
+        nameTxt.setText(s.getIsim());
+        propTxt.setText(s.getKategori());
+        descTxt.setText((String.valueOf(s.getMikta())));
 
         return convertView;
     }

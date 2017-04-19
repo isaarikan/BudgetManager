@@ -17,36 +17,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Adapter.CustomAdapter;
-import FireBase.FireBaseHelper;
 import Model.Income;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseReference db;
-    FireBaseHelper helper;
+
     FloatingActionButton fab;
     CustomAdapter adapter;
     ListView lv;
+    Boolean saved;
     EditText nameEditTxt, propTxt, descTxt;
-    List<Income> incomelist = new ArrayList<>();
+    ArrayList<Income> incomelist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_content);
 
         //Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
-        lv=(ListView)findViewById(R.id.lv);
+        // setSupportActionBar(toolbar);
+        lv = (ListView) findViewById(R.id.lv);
 
-        db= FirebaseDatabase.getInstance().getReference();
+        db = FirebaseDatabase.getInstance().getReference();
         //isa
-        helper=new FireBaseHelper(db);
-        adapter = new CustomAdapter(MainActivity.this, helper.getIncomes());
+
+        adapter = new CustomAdapter(MainActivity.this, getIncomes());
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        fab=(FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,19 +53,70 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public Boolean save(Income income){
+
+        if(income==null){
+
+            saved=false;
+
+        }else{
+
+            try{
+
+
+                db.child("Income").push().setValue(income);
+
+                saved=true;
+            }catch (Exception ex){
+
+                ex.printStackTrace();;
+                saved=false;
+
+            }
+        }
+
+        return saved;
+
+
+    }
+
+
+
+    private void fetchData(DataSnapshot dataSnapshot)
+    {
+        incomelist.clear();
+
+
+        for (DataSnapshot ds : dataSnapshot.getChildren())
+        {
+            Income income=ds.getValue(Income.class);
+            incomelist.add(income);
+            adapter.notifyDataSetChanged();
+
+        }
+
+    }
+
+
+
+
+    public ArrayList<Income> getIncomes(){
+
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Income doc =dataSnapshot.getValue(Income.class);
-                incomelist.add(doc);
-                adapter.notifyDataSetChanged();
+                fetchData(dataSnapshot);
+
 
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                fetchData(dataSnapshot);
             }
 
             @Override
@@ -84,9 +134,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        return incomelist;
 
     }
+
+
+
+
+
 
     private void displayInput() {
         final Dialog d=new Dialog(this);
@@ -115,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (name != null && name.length() > 0) {
                     //THEN SAVE
-                    if (helper.save(income)) {
+                    if (save(income)) {
 
-                        adapter.notifyDataSetChanged();
+
                         //IF SAVED CLEAR EDITXT
                         d.cancel();
                         nameEditTxt.setText("");
@@ -139,4 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }

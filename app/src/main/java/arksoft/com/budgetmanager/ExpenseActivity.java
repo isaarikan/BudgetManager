@@ -15,12 +15,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Adapter.ExpenseAdapter;
-import FireBase.FireBaseHelper;
 import Model.Expense;
 
 /**
@@ -30,12 +29,13 @@ import Model.Expense;
 public class ExpenseActivity extends Activity{
 
     DatabaseReference db;
-    FireBaseHelper helper;
+
     FloatingActionButton fab;
     ExpenseAdapter adapter;
     ListView lv;
+    Boolean saved;
     EditText nameEditTxt, propTxt, descTxt;
-    List<Expense> expenselist = new ArrayList<>();
+    ArrayList<Expense> expenselist = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,16 +43,19 @@ public class ExpenseActivity extends Activity{
 
         //Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
-        lv=(ListView)findViewById(R.id.lv);
+        lv = (ListView) findViewById(R.id.listview);
 
-        db= FirebaseDatabase.getInstance().getReference();
+        db = FirebaseDatabase.getInstance().getReference();
+        getExpenses();
+
         //isa
-        helper=new FireBaseHelper(db);
-        adapter=new ExpenseAdapter(this,helper.getExpenses());
+
+
+
+        adapter = new ExpenseAdapter(ExpenseActivity.this, getExpenses());
         lv.setAdapter(adapter);
 
-
-        fab=(FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +63,80 @@ public class ExpenseActivity extends Activity{
             }
         });
 
+
+    }
+
+    public Boolean save(Expense expense){
+
+        if(expense==null){
+
+            saved=false;
+
+        }else{
+
+            try{
+
+
+                db.child("Expense").push().setValue(expense);
+
+                saved=true;
+            }catch (Exception ex){
+
+                ex.printStackTrace();;
+                saved=false;
+
+            }
+        }
+
+        return saved;
+
+
+    }
+
+
+
+    public void fetchData(DataSnapshot dataSnapshot)
+    {
+
+        adapter.notifyDataSetChanged();
+        expenselist.clear();
+
+
+        for (DataSnapshot ds : dataSnapshot.getChildren())
+        {
+
+            Expense expense=ds.getValue(Expense.class);
+            expenselist.add(expense);
+
+
+
+        }
+
+    }
+
+
+
+
+    public ArrayList<Expense> getExpenses(){
+
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                fetchData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Expense doc =dataSnapshot.getValue(Expense.class);
-                expenselist.add(doc);
-                adapter.notifyDataSetChanged();
+                fetchData(dataSnapshot);
+
 
 
             }
@@ -73,6 +144,7 @@ public class ExpenseActivity extends Activity{
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                fetchData(dataSnapshot);
             }
 
             @Override
@@ -91,27 +163,31 @@ public class ExpenseActivity extends Activity{
             }
         });
 
+        return expenselist;
 
     }
+
+
+
+
+
 
     private void displayInput() {
         final Dialog d=new Dialog(this);
 
-        d.setTitle("Gider Girin");
+        d.setTitle("Gelir Girin");
 
-        d.setContentView(R.layout.inputlayout);
+        d.setContentView(R.layout.expense_layout);
 
-        nameEditTxt = (EditText) d.findViewById(R.id.nameEditText);
-        propTxt = (EditText) d.findViewById(R.id.propellantEditText);
-        descTxt = (EditText) d.findViewById(R.id.descEditText);
+        nameEditTxt = (EditText) d.findViewById(R.id.name);
+        propTxt = (EditText) d.findViewById(R.id.kategori);
+        descTxt = (EditText) d.findViewById(R.id.miktar);
         Button saveBtn = (Button) d.findViewById(R.id.saveBtn);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 String name = nameEditTxt.getText().toString();
                 String type = propTxt.getText().toString();
                 String  amount= String.valueOf(descTxt.getText().toString());
@@ -123,15 +199,15 @@ public class ExpenseActivity extends Activity{
 
                 if (name != null && name.length() > 0) {
                     //THEN SAVE
-                    if (helper.saveExpense(expense)) {
-                        //IF SAVED CLEAR EDITXT
+                    if (save(expense)) {
 
+
+                        //IF SAVED CLEAR EDITXT
+                        d.cancel();
                         nameEditTxt.setText("");
                         propTxt.setText("");
                         descTxt.setText("");
-                        adapter = new ExpenseAdapter(ExpenseActivity.this, helper.getExpenses());
-                        lv.setAdapter(adapter);
-                        d.cancel();
+
 
                     }
                 } else {
@@ -147,4 +223,6 @@ public class ExpenseActivity extends Activity{
 
 
     }
+
+
 }
