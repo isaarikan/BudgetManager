@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         final Dialog d=new Dialog(this);
 
         d.setTitle("Gelir Girin");
+
         d.setContentView(R.layout.inputlayout);
 
         nameEditTxt = (EditText) d.findViewById(R.id.nameEditText);

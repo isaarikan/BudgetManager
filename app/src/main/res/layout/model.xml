@@ -24,8 +24,15 @@
             android:textStyle="bold" />
 
         <TextView
+            android:textAlignment="textEnd"
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
             android:id="@+id/descTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:fontFamily="san-serif-thin"
@@ -37,7 +44,7 @@
 
         <TextView
             android:id="@+id/propellantTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:text="Propellant"
             android:textAppearance="?android:attr/textAppearanceMedium"
