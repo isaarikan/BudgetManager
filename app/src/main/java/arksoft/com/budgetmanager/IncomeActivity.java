@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class IncomeActivity extends AppCompatActivity {
     FloatingActionButton fab;
     CustomAdapter adapter;
     ListView lv;
+    public static int incomesize;
     Boolean saved;
     EditText nameEditTxt, propTxt, descTxt;
     ArrayList<Income> incomelist = new ArrayList<>();
@@ -41,10 +43,11 @@ public class IncomeActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance().getReference();
         //isa
+        getIncomes();
+        adapter = new CustomAdapter(IncomeActivity.this, incomelist);
 
-        adapter = new CustomAdapter(IncomeActivity.this, getIncomes());
         lv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +100,8 @@ public class IncomeActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 
         }
+        incomesize=incomelist.size();
+        Log.d("Income",String.valueOf(incomesize));
 
     }
 
@@ -109,6 +114,7 @@ public class IncomeActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 fetchData(dataSnapshot);
+                adapter.notifyDataSetChanged();
 
 
 

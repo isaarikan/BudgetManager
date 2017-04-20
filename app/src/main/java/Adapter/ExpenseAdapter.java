@@ -34,7 +34,10 @@ public class ExpenseAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
+
         return expenses.size();
+
+
     }
 
     @Override
@@ -51,7 +54,7 @@ public class ExpenseAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
-            convertView= LayoutInflater.from(c).inflate(R.layout.model,parent,false);
+            convertView= LayoutInflater.from(c).inflate(R.layout.expense_model,parent,false);
         }
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);

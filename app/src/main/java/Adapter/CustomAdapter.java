@@ -22,7 +22,7 @@ import arksoft.com.budgetmanager.R;
 public class CustomAdapter extends BaseAdapter{
     Context c;
     ArrayList<Income> incomes;
-
+   public static int incomesize=0;
 
 
     public CustomAdapter(){}
@@ -36,7 +36,9 @@ public class CustomAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
+        incomesize=incomes.size();
         return incomes.size();
+
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class ExpenseActivity extends Activity{
     ListView lv;
     Boolean saved;
     EditText nameEditTxt, propTxt, descTxt;
-    ArrayList<Expense> expenselist = new ArrayList<>();
+    ArrayList<Expense> expenselist = new ArrayList<Expense>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +45,23 @@ public class ExpenseActivity extends Activity{
         lv = (ListView) findViewById(R.id.listview);
 
         db = FirebaseDatabase.getInstance().getReference();
+        //isa
+
+        expenselist.clear();
+        adapter = new ExpenseAdapter(ExpenseActivity.this, expenselist);
         getExpenses();
+        adapter.notifyDataSetChanged();
+        lv.setAdapter(adapter);
+
+
+
+
 
         //isa
 
 
 
-        adapter = new ExpenseAdapter(ExpenseActivity.this, getExpenses());
-        lv.setAdapter(adapter);
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +99,7 @@ public class ExpenseActivity extends Activity{
         return saved;
 
 
+
     }
 
 
@@ -98,8 +107,7 @@ public class ExpenseActivity extends Activity{
     public void fetchData(DataSnapshot dataSnapshot)
     {
 
-        adapter.notifyDataSetChanged();
-        expenselist.clear();
+
 
 
         for (DataSnapshot ds : dataSnapshot.getChildren())
@@ -107,6 +115,8 @@ public class ExpenseActivity extends Activity{
 
             Expense expense=ds.getValue(Expense.class);
             expenselist.add(expense);
+           // adapter.notifyDataSetChanged();
+
 
 
 
@@ -119,18 +129,7 @@ public class ExpenseActivity extends Activity{
 
     public ArrayList<Expense> getExpenses(){
 
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         db.addChildEventListener(new ChildEventListener() {
             @Override
