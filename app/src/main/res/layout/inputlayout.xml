@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -11,19 +12,33 @@
                 android:singleLine="true"
                 android:hint= "İsim" />
 
-            <EditText
-                android:id="@+id/propellantEditText"
+            <Spinner
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:entries="@array/income_types"
+                android:id="@+id/kategori"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:hint= "Kategori" />
 
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/descEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:hint= "Miktar" />
+    <DatePicker
+        android:id="@+id/inputlayout_datepicker"
+        android:layout_width="match_parent"
+        android:datePickerMode="spinner"
+        android:layout_height="wrap_content">
+
+    </DatePicker>
+
+
+
 
         <Button android:id="@+id/saveBtn"
             android:layout_width="fill_parent"
@@ -31,7 +46,7 @@
             android:enabled="true"
             android:text="Save"
             android:clickable="true"
-            android:background="@color/colorAccent"
+            android:background="@color/com_facebook_blue"
             android:layout_marginTop="40dp"
             android:textColor="@android:color/white"/>
 

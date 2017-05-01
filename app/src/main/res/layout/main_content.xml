@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ListView
+
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
@@ -23,7 +25,7 @@
         android:layout_marginTop="16dp"
 
         android:clickable="true"
-        android:src="@drawable/wallet"
+        android:src="@drawable/ic_wallet"
         app:backgroundTint="@color/cardview_light_background" />
 
 </RelativeLayout>

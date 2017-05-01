@@ -1,21 +1,36 @@
 package Model;
 
-/**
- * Created by isaarikan on 18.04.2017.
- */
 
 
 
 public class Income {
    private String name,type;
   private  String miktar;
+    String id;
+    String date;
+
+
+
     public Income(){ }
-    public Income(String name, String type, String miktar) {
+
+
+
+    public Income(String name,String miktar, String type, String id,String date) {
+        this.date=date;
         this.name = name;
         this.type = type;
         this.miktar = miktar;
+        this.id=id;
+
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -40,6 +55,12 @@ public class Income {
         this.miktar = miktar;
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 }

@@ -111,13 +111,13 @@
 
     <!--
 
-     == Login and Create Account Strings ==
+     == Login and Create CreditCard Strings ==
 
       -->
     <!-- Activity Titles  -->
     <string name="title_activity_create_account">Create Account</string>
 
-    <!-- Login and Create Account Screen  -->
+    <!-- Login and Create CreditCard Screen  -->
     <string name="text_dont_have_account">Don\'t have an account?</string>
     <string name="text_already_have_account">Already have an account?</string>
     <string name="button_create_account">Sign Up</string>

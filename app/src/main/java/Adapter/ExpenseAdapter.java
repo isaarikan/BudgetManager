@@ -10,11 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Model.Expense;
+import arksoft.com.budgetmanager.IncomeActivity;
 import arksoft.com.budgetmanager.R;
 
-/**
- * Created by isaarikan on 19.04.2017.
- */
 
 public class ExpenseAdapter extends BaseAdapter{
 
@@ -34,7 +32,7 @@ public class ExpenseAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-
+        IncomeActivity.incomelist.clear();
         return expenses.size();
 
 
@@ -60,13 +58,15 @@ public class ExpenseAdapter extends BaseAdapter{
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView propTxt= (TextView) convertView.findViewById(R.id.aciklama);
         TextView descTxt= (TextView) convertView.findViewById(R.id.descTxt);
+        TextView tarih=(TextView)convertView.findViewById(R.id.tarih);
 
 
 
         Expense s= (Expense)getItem(position);
-        nameTxt.setText(s.getIsim());
-        propTxt.setText(s.getKategori());
-        descTxt.setText((String.valueOf(s.getMikta())));
+        nameTxt.setText(s.getKategori());
+        propTxt.setText(String.valueOf(s.getMikta()));
+        descTxt.setText(s.getIsim());
+        tarih.setText(s.getDate());
 
         return convertView;
     }

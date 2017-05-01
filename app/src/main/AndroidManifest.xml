@@ -3,7 +3,7 @@
     package="arksoft.com.budgetmanager">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>﻿
     <application
 
         android:allowBackup="true"
@@ -21,7 +21,19 @@
         </activity>
         <activity android:name=".IncomeActivity"></activity>
         <activity android:name=".ExpenseActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".CreditCardActivity"></activity>
+        <activity android:name=".CreateAccountActivity"></activity>
+        <activity android:name=".Graph"></activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity  android:name=".CalendarActivity"></activity>
+        <activity android:name=".About"></activity>
+        <receiver android:name=".AlarmReceiver">
+
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 
