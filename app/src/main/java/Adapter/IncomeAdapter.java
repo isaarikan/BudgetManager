@@ -83,9 +83,9 @@ public class IncomeAdapter extends BaseAdapter{
 
         //Pozisyonuna göre nesneyi al textviewlara at
          Income s= (Income) this.getItem(position);
-        nameTxt.setText(s.getName());
-        propTxt.setText(s.getType());
-        descTxt.setText((String.valueOf(s.getMiktar())));
+        nameTxt.setText(s.getType());
+        propTxt.setText((String.valueOf(s.getMiktar())));
+        descTxt.setText(s.getName());
         tarih.setText(s.getDate());
 
 

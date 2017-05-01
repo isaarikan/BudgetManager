@@ -6,8 +6,8 @@ package Model;
 public class Income {
    private String name,type;
   private  String miktar;
-    String id;
-    String date;
+ private   String id;
+ private   String date;
 
 
 
