@@ -46,7 +46,7 @@ public class ExpenseActivity extends Activity {
 
     public static ArrayList<Integer> toplamMiktar = new ArrayList<>();
     public static ArrayList<Expense> expenselist = new ArrayList<>();
-
+//fatih
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
