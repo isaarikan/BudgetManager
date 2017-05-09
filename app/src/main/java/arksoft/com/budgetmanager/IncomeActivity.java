@@ -32,6 +32,7 @@ public class IncomeActivity extends AppCompatActivity  {
     FloatingActionButton fab;
     IncomeAdapter adaptera;
     ListView lv;
+
     public static int incomesize;
     Boolean saved;
     EditText nameEditTxt, descTxt;
@@ -229,6 +230,16 @@ public class IncomeActivity extends AppCompatActivity  {
         d.show();
 
 
+    }
+
+    private static FirebaseDatabase mDatabase;
+
+    public static FirebaseDatabase getDatabase() {
+        if (mDatabase == null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mDatabase.setPersistenceEnabled(true);
+        }
+        return mDatabase;
     }
 
 

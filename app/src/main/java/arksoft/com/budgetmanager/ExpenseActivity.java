@@ -43,6 +43,7 @@ public class ExpenseActivity extends Activity {
     EditText nameEditTxt, descTxt;
     Spinner kategori;
     int toplama = 0;
+
     public static ArrayList<Integer> toplamMiktar = new ArrayList<>();
     public static ArrayList<Expense> expenselist = new ArrayList<>();
 
@@ -57,12 +58,14 @@ public class ExpenseActivity extends Activity {
         lv = (ListView) findViewById(R.id.listview);
 
 
+
+
+
         db = FirebaseDatabase.getInstance().getReference().child("Expense");
         db.keepSynced(true);
         //isa
         expenselist.clear();
         getExpenses();
-
         adapter = new ExpenseAdapter(ExpenseActivity.this, expenselist);
         lv.setAdapter(adapter);
 
@@ -133,7 +136,7 @@ public class ExpenseActivity extends Activity {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             expense = ds.getValue(Expense.class);
             expenselist.add(expense);
-            toplamMiktar.add(Integer.parseInt(expense.getMikta()));
+
             adapter.notifyDataSetChanged();
 
 
@@ -231,6 +234,17 @@ public class ExpenseActivity extends Activity {
 
 
     }
+
+    private static FirebaseDatabase mDatabase;
+
+    public static FirebaseDatabase getDatabase() {
+        if (mDatabase == null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mDatabase.setPersistenceEnabled(true);
+        }
+        return mDatabase;
+    }
+
 
 
 }
