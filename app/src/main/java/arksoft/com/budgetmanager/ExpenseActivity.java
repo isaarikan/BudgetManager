@@ -63,7 +63,8 @@ public class ExpenseActivity extends Activity {
 
         db = FirebaseDatabase.getInstance().getReference().child("Expense");
         db.keepSynced(true);
-        //isa
+
+        
         expenselist.clear();
         getExpenses();
         adapter = new ExpenseAdapter(ExpenseActivity.this, expenselist);

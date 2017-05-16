@@ -1,0 +1,52 @@
+<ScrollView
+
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent">
+
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/hesapmakinesi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hesap Makinesi" />
+
+        <Button
+            android:id="@+id/vergihesaplama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Vergi Hesaplayıcı" />
+        <Button
+            android:id="@+id/bahsishesaplama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Bahşiş Hesaplayıcı" />
+
+        <Button
+            android:id="@+id/kredikartitaksit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kredi Kartı Taksit Hesaplayıcı" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</ScrollView>

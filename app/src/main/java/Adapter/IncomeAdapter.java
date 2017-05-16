@@ -18,14 +18,7 @@ import arksoft.com.budgetmanager.R;
 
 public class IncomeAdapter extends BaseAdapter{
 
-    //Listview için adapter -custom listview izle
-    public interface btnClickListen{
 
-        void deleteListener(int position);
-    }
-
-
-       public btnClickListen btnDelete=null;
 
 
 
@@ -70,10 +63,12 @@ public class IncomeAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView==null){
+            //Tasarım dosyasını al donuştür.
             convertView= LayoutInflater.from(c).inflate(R.layout.income_model,parent,false);
         }
 
 
+        //Gelen nesneye göre bunları ata
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView propTxt= (TextView) convertView.findViewById(R.id.aciklama);
         TextView descTxt= (TextView) convertView.findViewById(R.id.descTxt);
